@@ -1,0 +1,235 @@
+/* ==========================================================================
+   ARQUITETURA DE DESIGN: VARIÁVEIS DE CORES DO PROJETO (PALETA DEFAULT)
+   Uso da pseudo-classe :root para centralizar tokens globais de cores, 
+   facilitando a manutenção e a consistência visual do layout.
+   ========================================================================== */
+:root {
+    --cor-fundo: #ffffff;
+    --cor-texto: #333333;
+    --cor-primaria: #007bff;
+    --cor-secundaria: #f8f9fa;
+}
+
+/* Sobrescrita dinâmica das variáveis de cores para a aplicação do Tema Escuro (Dark Mode) */
+body.dark-theme {
+    --cor-fundo: #222222;
+    --cor-texto: #f1f1f1;
+    --cor-primaria: #ffc107;
+    --cor-secundaria: #333333;
+}
+
+/* ==========================================================================
+   RESETS E CONFIGURAÇÕES DE TIPOGRAFIA GLOBAL
+   ========================================================================== */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-family: Arial, sans-serif;
+    line-height: 1.6;
+    transition: background-color 0.5s, color 0.5s; 
+}
+
+/* ==========================================================================
+   ESTILIZAÇÃO COMPLEXA: CONFIGURAÇÃO DO CABEÇALHO COM FLEXBOX
+   Uso do Flexbox bidimensional para distribuir horizontalmente o menu e o botão
+   de alternar tema (justify-content: space-between) e centralizá-los verticalmente.
+   ========================================================================== */
+header {
+    background-color: var(--cor-primaria);
+    padding: 1rem 2rem;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    display: flex;                 /* Habilita o modelo de caixas flexíveis (Flexbox) */
+    justify-content: space-between; /* Alinha os blocos filhos nas extremidades opostas */
+    align-items: center;            /* Alinha os itens verticalmente ao centro */
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    transition: background-color 0.5s; 
+}
+
+nav {
+    flex-grow: 1;
+}
+
+/* Organização e distribuição dos links de navegação usando Flexbox */
+nav ul {
+    display: flex;                 /* Posiciona os itens da lista em linha horizontal */
+    justify-content: center;       /* Centraliza o conjunto de links no espaço da nav */
+    gap: 30px;                     /* Define um espaçamento controlado e uniforme entre os links */
+    list-style: none;
+}
+
+nav a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.5s;
+}
+
+body.dark-theme nav a {
+    color: #222222;
+}
+
+nav a:hover {
+    text-decoration: underline;
+}
+
+/* Componente do Botão de Tema */
+#btn-tema {
+    padding: 0.5rem 1rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    transition: background-color 0.3s;
+}
+
+/* ==========================================================================
+   ESTRUTURA DE BLOCOS DAS SEÇÕES OBRIGATÓRIAS
+   ========================================================================== */
+.sessao {
+    padding: 80px 20px;
+    max-width: 900px;
+    margin: 0 auto;
+    border-bottom: 1px solid #ccc;
+}
+
+.sessao h1, .sessao h2 {
+    margin-bottom: 20px;
+    color: var(--cor-primaria);
+}
+
+/* ==========================================================================
+   SEÇÃO OBRIGATÓRIA 1: SOBRE MIM (LAYOUT INTERNO COM FLEXBOX)
+   Uso do Flexbox direcionado em coluna para estruturar o alinhamento central da 
+   foto de perfil e dos textos descritivos.
+   ========================================================================== */
+.sobre-conteudo {
+    display: flex;
+    flex-direction: column;        /* Empilha os elementos em sentido vertical (coluna) */
+    align-items: center;            /* Centraliza os itens horizontalmente no eixo cruzado */
+    gap: 20px;
+    text-align: center;
+}
+
+.img-perfil {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--cor-primaria);
+    overflow: hidden;
+}
+
+/* SEÇÃO OBRIGATÓRIA 2: FORMAÇÃO ACADÊMICA (ESTILIZAÇÃO DE TABELA HTML5) */
+.tabela-formacao {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.tabela-formacao th, .tabela-formacao td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+}
+
+.tabela-formacao th {
+    background-color: var(--cor-secundaria);
+}
+
+/* ==========================================================================
+   SEÇÃO OBRIGATÓRIA 3: PORTFÓLIO (ESTILIZAÇÃO COMPLEXA COM CSS GRID)
+   Construção de uma malha quadriculada totalmente fluida e automatizada. Cria colunas 
+   responsivas sem media queries fixas baseando-se no espaço disponível.
+   ========================================================================== */
+.grid-portfolio {
+    display: grid;                 /* Inicializa o gerenciador de layout baseado em malhas (Grid) */
+    /* Cria repetições automáticas (auto-fit) com colunas de no mínimo 250px e no máximo 1 fração (1fr) */
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;                     /* Define o espaçamento (sarjeta) entre os cards do grid */
+    padding: 20px 0;
+}
+
+.projeto {
+    background-color: var(--cor-secundaria);
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    transition: transform 0.3s, box-shadow 0.3s;
+}
+
+/* Microinteração de animação ao passar o mouse (Hover) nos cards do portfólio */
+.projeto:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+/* ==========================================================================
+   SEÇÃO OBRIGATÓRIA 4: CONTATO (FORMULÁRIO ESTRUTURADO EM FLEXBOX)
+   ========================================================================== */
+#form-contato {
+    display: flex;
+    flex-direction: column;        /* Estrutura os campos um abaixo do outro verticalmente */
+    gap: 15px;
+}
+
+.campo-form {
+    display: flex;
+    flex-direction: column;        /* Garante que o label fique acima da caixa de digitação */
+    gap: 5px;
+}
+
+.campo-form input, .campo-form textarea {
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+}
+
+#btn-enviar {
+    padding: 12px;
+    background-color: var(--cor-primaria);
+    color: white;
+    border: none;
+    border-radius: 4px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+body.dark-theme #btn-enviar {
+    color: #222222;
+}
+
+/* RODAPÉ DO DOCUMENTO */
+footer {
+    text-align: center;
+    padding: 20px;
+    background-color: var(--cor-secundaria);
+    font-size: 0.9rem;
+}
+
+/* ==========================================================================
+   MECANISMO DE RESPONSIVIDADE: MEDIA QUERIES
+   Redefinição dos fluxos em Flexbox para garantir adaptabilidade em smartphones.
+   ========================================================================== */
+@media screen and (max-width: 600px) {
+    header {
+        flex-direction: column;    /* Altera o cabeçalho de linha para coluna em telas pequenas */
+        gap: 15px;
+    }
+    nav ul {
+        flex-direction: column;    /* Empilha verticalmente os links do menu principal */
+        align-items: center;
+        gap: 10px;
+    }
+}
